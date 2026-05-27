@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김태경 · 디지털 교육 강사</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════
+       TOKENS
+    ════════════════════════════════ */
+    :root {
+      --cream-50:  #FDFBF5;
+      --cream-100: #F8F4E8;
+      --cream-200: #EFE8D6;
+      --cream-300: #E2D9C4;
+
+      --mint-100:  #D6F0EB;
+      --mint-200:  #A8DDD5;
+      --mint-300:  #6DC5B9;
+      --mint-400:  #46B5A6;
+      --mint-500:  #2FA091;
+      --mint-600:  #1D8476;
+      --mint-700:  #145F56;
+
+      --text-dark:    #1C2B28;
+      --text-mid:     #3D5752;
+      --text-light:   #6B8C87;
+      --text-faint:   #9DBBB6;
+
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(28,43,40,0.06);
+      --shadow-md: 0 6px 24px rgba(28,43,40,0.09);
+      --shadow-lg: 0 16px 48px rgba(28,43,40,0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+    }
+
+    /* ════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--cream-50);
+      color: var(--text-dark);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ════════════════════════════════
+       NAVIGATION
+    ════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(253,251,245,0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--cream-200);
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: var(--shadow-md); }
+
+    .nav__inner {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--mint-600);
+      letter-spacing: -0.01em;
+    }
+    .nav__logo span { color: var(--text-dark); }
+
+    .nav__links {
+      list-style: none;
+      display: flex; gap: 0.25rem;
+    }
+    .nav__links a {
+      display: block;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--text-mid);
+      transition: background .2s, color .2s;
+    }
+    .nav__links a:hover,
+    .nav__links a.active {
+      background: var(--mint-100);
+      color: var(--mint-600);
+    }
+
+    .nav__cta {
+      background: var(--mint-500);
+      color: var(--white) !important;
+      padding: 0.45rem 1.1rem !important;
+      border-radius: 999px !important;
+      font-weight: 600 !important;
+      font-size: 0.85rem !important;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav__cta:hover {
+      background: var(--mint-600) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav__hamburger span { display: block; width: 22px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: .3s; }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 2rem 80px;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, var(--cream-50) 0%, var(--cream-100) 40%, #E8F7F4 100%);
+    }
+
+    /* decorative blobs */
+    .hero::before {
+      content: '';
+      position: absolute; top: -180px; right: -140px;
+      width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(70,181,166,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -100px; left: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,232,214,0.8) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      max-width: 1160px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 5rem;
+      position: relative; z-index: 1;
+    }
+
+    /* Left — text */
+    .hero__eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--mint-100); color: var(--mint-600);
+      padding: 0.35rem 1rem; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 1.4rem;
+    }
+    .hero__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--mint-500); }
+
+    .hero__name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1; color: var(--text-dark);
+      margin-bottom: 0.6rem; letter-spacing: -0.02em;
+    }
+    .hero__name em { font-style: normal; color: var(--mint-500); }
+
+    .hero__subtitle {
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--text-mid); margin-bottom: 1.4rem;
+      line-height: 1.6;
+    }
+
+    .hero__desc {
+      font-size: 0.97rem; color: var(--text-light);
+      line-height: 1.9; margin-bottom: 2rem;
+    }
+
+    .hero__chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;
+    }
+    .chip {
+      padding: 0.3rem 0.85rem; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 500;
+      border: 1.5px solid var(--cream-300);
+      background: var(--white); color: var(--text-mid);
+      transition: all .2s;
+    }
+    .chip:hover { border-color: var(--mint-300); color: var(--mint-600); }
+
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.7rem 1.5rem; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 600;
+      transition: all .22s; cursor: pointer; border: none;
+    }
+    .btn--primary {
+      background: var(--mint-500); color: var(--white);
+      box-shadow: 0 4px 16px rgba(46,160,145,0.3);
+    }
+    .btn--primary:hover { background: var(--mint-600); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,160,145,0.35); }
+
+    .btn--outline {
+      background: transparent; color: var(--text-mid);
+      border: 1.5px solid var(--cream-300);
+    }
+    .btn--outline:hover { border-color: var(--mint-400); color: var(--mint-600); transform: translateY(-2px); }
+
+    /* Right — photo + stats card */
+    .hero__visual { position: relative; }
+
+    .hero__photo-wrap {
+      position: relative; width: fit-content; margin: 0 auto;
+    }
+    .hero__photo-wrap::before {
+      content: '';
+      position: absolute; inset: -12px;
+      border-radius: 38% 62% 60% 40% / 40% 44% 56% 60%;
+      background: linear-gradient(135deg, var(--mint-200), var(--mint-100));
+      z-index: 0;
+      animation: morphBlob 8s ease-in-out infinite;
+    }
+    @keyframes morphBlob {
+      0%,100% { border-radius: 38% 62% 60% 40% / 40% 44% 56% 60%; }
+      33%      { border-radius: 55% 45% 38% 62% / 50% 36% 64% 50%; }
+      66%      { border-radius: 42% 58% 55% 45% / 60% 50% 50% 40%; }
+    }
+
+    .hero__photo {
+      position: relative; z-index: 1;
+      width: 320px; height: 360px;
+      border-radius: 36% 64% 58% 42% / 42% 46% 54% 58%;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      animation: morphPhoto 8s ease-in-out infinite;
+    }
+    @keyframes morphPhoto {
+      0%,100% { border-radius: 36% 64% 58% 42% / 42% 46% 54% 58%; }
+      33%      { border-radius: 52% 48% 36% 64% / 48% 34% 66% 52%; }
+      66%      { border-radius: 40% 60% 52% 48% / 58% 48% 52% 42%; }
+    }
+    .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+    /* Floating stat cards */
+    .stat-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.1rem;
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; gap: 0.6rem;
+      z-index: 2;
+    }
+    .stat-card__icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .stat-card__icon.mint   { background: var(--mint-100); }
+    .stat-card__icon.cream  { background: var(--cream-200); }
+    .stat-card__num  { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+    .stat-card__lbl  { font-size: 0.72rem; color: var(--text-light); margin-top: 2px; }
+
+    .stat-card--a { top: -24px; right: -24px; }
+    .stat-card--b { bottom: 60px; left: -30px; }
+    .stat-card--c { bottom: -20px; right: 20px; }
+
+    /* ════════════════════════════════
+       SECTION COMMONS
+    ════════════════════════════════ */
+    .section { padding: 96px 2rem; }
+    .section--alt { background: var(--white); }
+
+    .section__inner { max-width: 1160px; margin: 0 auto; }
+
+    .section__header { margin-bottom: 3.5rem; }
+    .section__label {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mint-500);
+      margin-bottom: 0.6rem;
+    }
+    .section__label::before { content: ''; width: 20px; height: 2px; background: var(--mint-400); border-radius: 1px; }
+
+    .section__title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--text-dark); letter-spacing: -0.02em;
+      margin-bottom: 0.5rem; line-height: 1.2;
+    }
+    .section__desc { font-size: 0.97rem; color: var(--text-light); max-width: 540px; }
+
+    /* ════════════════════════════════
+       EXPERIENCE TIMELINE
+    ════════════════════════════════ */
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 3rem;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--mint-200), var(--cream-300), transparent);
+      transform: translateX(-50%);
+    }
+
+    .tl-item {
+      background: var(--white);
+      border: 1px solid var(--cream-200);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.6rem;
+      transition: all .25s;
+      position: relative;
+    }
+    .section--alt .tl-item { background: var(--cream-50); }
+
+    .tl-item:hover {
+      border-color: var(--mint-200);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .tl-item__period {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--mint-100); color: var(--mint-600);
+      padding: 0.22rem 0.7rem; border-radius: 999px;
+      font-size: 0.73rem; font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .tl-item__title { font-size: 0.97rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text-dark); }
+    .tl-item__org   { font-size: 0.84rem; font-weight: 500; color: var(--mint-500); margin-bottom: 0.5rem; }
+    .tl-item__desc  { font-size: 0.84rem; color: var(--text-light); line-height: 1.7; }
+
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.8rem; }
+    .tl-tag {
+      padding: 0.2rem 0.65rem; border-radius: 999px;
+      font-size: 0.74rem; font-weight: 500;
+    }
+    .tl-tag.mint   { background: var(--mint-100);  color: var(--mint-600); }
+    .tl-tag.cream  { background: var(--cream-200);  color: var(--text-mid); }
+    .tl-tag.sage   { background: #E8F4F0; color: #2A6B5E; }
+    .tl-tag.peach  { background: #FFF0E8; color: #B55A2A; }
+    .tl-tag.violet { background: #F0EBF8; color: #5E3D8A; }
+
+    /* ════════════════════════════════
+       CERTIFICATIONS
+    ════════════════════════════════ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .cert-card {
+      background: var(--cream-50);
+      border: 1px solid var(--cream-200);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: all .25s;
+    }
+    .cert-card:hover {
+      border-color: var(--mint-200);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+
+    .cert-badge {
+      width: 46px; height: 46px; flex-shrink: 0;
+      border-radius: 14px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .cert-badge.mint   { background: var(--mint-100); }
+    .cert-badge.cream  { background: var(--cream-200); }
+    .cert-badge.sage   { background: #E8F4F0; }
+    .cert-badge.peach  { background: #FFF0E8; }
+    .cert-badge.violet { background: #F0EBF8; }
+
+    .cert-info { flex: 1; min-width: 0; }
+    .cert-name   { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.18rem; }
+    .cert-issuer { font-size: 0.8rem; color: var(--text-light); }
+
+    .cert-year {
+      font-size: 0.75rem; font-weight: 700; white-space: nowrap;
+      color: var(--mint-600); background: var(--mint-100);
+      padding: 0.22rem 0.6rem; border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    /* ════════════════════════════════
+       SKILLS
+    ════════════════════════════════ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--white);
+      border: 1px solid var(--cream-200);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.5rem;
+    }
+    .skill-group__icon  { font-size: 1.6rem; margin-bottom: 0.7rem; }
+    .skill-group__title { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.9rem; }
+    .skill-group__tags  { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .skill-pill {
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 500;
+      background: var(--cream-100); color: var(--text-mid);
+      border: 1px solid var(--cream-300);
+      transition: all .2s;
+    }
+    .skill-pill:hover { background: var(--mint-100); border-color: var(--mint-200); color: var(--mint-600); }
+
+    /* ════════════════════════════════
+       SCHEDULE
+    ════════════════════════════════ */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .sched-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--cream-200);
+      background: var(--white);
+      transition: all .25s;
+    }
+    .sched-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: var(--mint-200); }
+
+    .sched-top {
+      padding: 1rem 1.3rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sched-top.mint   { background: var(--mint-100); }
+    .sched-top.cream  { background: var(--cream-200); }
+    .sched-top.sage   { background: #E8F4F0; }
+
+    .sched-date { font-size: 0.85rem; font-weight: 700; }
+    .sched-date.mint  { color: var(--mint-600); }
+    .sched-date.cream { color: var(--text-mid); }
+    .sched-date.sage  { color: #1D6B5E; }
+
+    .sched-status {
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.18rem 0.6rem; border-radius: 999px;
+    }
+    .sched-status.done    { background: #D6F0EB; color: var(--mint-700); }
+    .sched-status.planned { background: #FEF9E7; color: #8A6D1C; }
+
+    .sched-body { padding: 1rem 1.3rem; }
+    .sched-title { font-size: 0.93rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.4rem; }
+    .sched-meta  { font-size: 0.82rem; color: var(--text-light); line-height: 1.65; }
+
+    /* ════════════════════════════════
+       CONTACT STRIP
+    ════════════════════════════════ */
+    .contact-strip {
+      background: linear-gradient(135deg, var(--mint-600) 0%, var(--mint-700) 100%);
+      padding: 72px 2rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-strip::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .contact-strip::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .contact-strip__inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .contact-strip__title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--white); margin-bottom: 0.6rem;
+    }
+    .contact-strip__sub { color: rgba(255,255,255,0.72); font-size: 0.97rem; margin-bottom: 2rem; }
+    .contact-strip__btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--white); color: var(--mint-700);
+      padding: 0.8rem 2rem; border-radius: 999px;
+      font-weight: 700; font-size: 0.95rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: all .22s;
+    }
+    .contact-strip__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      background: var(--text-dark);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.83rem; color: #5A7570; line-height: 1.8; }
+    footer a { color: var(--mint-300); transition: color .2s; }
+    footer a:hover { color: var(--mint-200); }
+
+    /* ════════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+      .hero__eyebrow, .hero__chips, .hero__actions { justify-content: center; }
+      .hero__photo { width: 260px; height: 300px; }
+      .stat-card--a { top: -16px; right: -12px; }
+      .stat-card--b { bottom: 40px; left: -16px; }
+      .stat-card--c { bottom: -12px; right: 8px; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .nav__links { display: none; }
+      .nav__links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 68px; left: 0; right: 0;
+        background: var(--cream-50);
+        border-bottom: 1px solid var(--cream-200);
+        padding: 1rem;
+        gap: 0.3rem;
+      }
+      .nav__hamburger { display: flex; }
+      .hero { padding-top: 100px; }
+      .hero__photo { width: 220px; height: 260px; }
+      .section { padding: 64px 1.2rem; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .schedule-grid { grid-template-columns: 1fr; }
+      .stat-card { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="nav" id="navbar">
+    <div class="nav__inner">
+      <div class="nav__logo">TK<span>·</span>Kim</div>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#hero"          class="active">홈</a></li>
+        <li><a href="#experience">강의 이력</a></li>
+        <li><a href="#certifications">자격증 &amp; 역량</a></li>
+        <li><a href="#schedule">수업 일정</a></li>
+        <li><a href="#contact" class="nav__cta">연락하기</a></li>
+      </ul>
+      <div class="nav__hamburger" id="hamburger" aria-label="메뉴">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section id="hero" class="hero">
+    <div class="hero__inner">
+
+      <!-- Text -->
+      <div class="hero__text">
+        <div class="hero__eyebrow">디지털 교육 전문 강사</div>
+        <h1 class="hero__name">김 <em>태경</em></h1>
+        <p class="hero__subtitle">초·중·고 코딩 · 피지컬컴퓨팅 · 생성형 AI 교육</p>
+        <p class="hero__desc">
+          학생들이 디지털 세상을 창의적으로 탐험할 수 있도록 돕는 강사입니다.<br>
+          코딩부터 피지컬컴퓨팅, 생성형 AI까지 다양한 현장에서 활발히 활동 중입니다.
+        </p>
+        <div class="hero__chips">
+          <span class="chip"># 코딩교육</span>
+          <span class="chip"># 피지컬컴퓨팅</span>
+          <span class="chip"># 생성형AI</span>
+          <span class="chip"># 디지털새싹</span>
+          <span class="chip"># 진로교육</span>
+        </div>
+        <div class="hero__actions">
+          <a href="mailto:firia96@gmail.com" class="btn btn--primary">✉&nbsp; 이메일 보내기</a>
+          <a href="#experience" class="btn btn--outline">강의 이력 보기 →</a>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero__visual">
+        <div class="hero__photo-wrap">
+          <!-- Floating stat cards -->
+          <div class="stat-card stat-card--a">
+            <div class="stat-card__icon mint">🏫</div>
+            <div>
+              <div class="stat-card__num">30+</div>
+              <div class="stat-card__lbl">강의 회차</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card--b">
+            <div class="stat-card__icon cream">🏅</div>
+            <div>
+              <div class="stat-card__num">9+</div>
+              <div class="stat-card__lbl">보유 자격증</div>
+            </div>
+          </div>
+          <div class="stat-card stat-card--c">
+            <div class="stat-card__icon mint">📍</div>
+            <div>
+              <div class="stat-card__num">15+</div>
+              <div class="stat-card__lbl">강의 기관</div>
+            </div>
+          </div>
+
+          <div class="hero__photo">
+            <img src="프로필사진5_김태경.png" alt="김태경 프로필 사진" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section id="experience" class="section section--alt">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <div class="section__label">Experience</div>
+        <h2 class="section__title">강의 이력</h2>
+        <p class="section__desc">학교, 복지관, 기업 등 다양한 현장에서의 교육 활동 타임라인입니다.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2026 · 02</div>
+          <div class="tl-item__title">한국표준협회 기업 AI 활용 강의</div>
+          <div class="tl-item__org">세명기업 · 한국표준협회</div>
+          <div class="tl-item__desc">기업 직원 대상 생성형 AI 활용 역량 강화 교육을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">생성형AI</span>
+            <span class="tl-tag sage">기업교육</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2026 · 02</div>
+          <div class="tl-item__title">찾아가는 학교컨설팅 — AI 활용</div>
+          <div class="tl-item__org">화북초 · 오현고 · 신제주초 · 교대부설초 · 제주대학교</div>
+          <div class="tl-item__desc">초·고등학교 교사 대상 생성형 AI 활용 수업 컨설팅을 지원했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">AI활용</span>
+            <span class="tl-tag violet">교사 컨설팅</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2026 · 01</div>
+          <div class="tl-item__title">찾아가는 학교컨설팅 — 캔바(Canva)</div>
+          <div class="tl-item__org">교대부설초 · 제주대학교</div>
+          <div class="tl-item__desc">캔바를 활용한 교사 디지털 콘텐츠 제작 역량 향상 컨설팅 진행. (총 5차시)</div>
+          <div class="tl-tags">
+            <span class="tl-tag peach">캔바</span>
+            <span class="tl-tag violet">교사 컨설팅</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2025 · 12</div>
+          <div class="tl-item__title">진로강의 — AI · 메타버스 · 체인지메이커 · 숏폼</div>
+          <div class="tl-item__org">제주서중 · 한림중 · 신성여중 · 동여중 · 사대부중 · 동중 | 에듀인</div>
+          <div class="tl-item__desc">중학생 대상 AI, 메타버스, 영상 콘텐츠 제작 등 미래 직업 연계 진로교육을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">AI 진로교육</span>
+            <span class="tl-tag violet">메타버스</span>
+            <span class="tl-tag sage">숏폼제작</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2025 · 12</div>
+          <div class="tl-item__title">디지털새싹 — 스마트센서 · 알티노 자동차</div>
+          <div class="tl-item__org">제주고 · 서귀포중 | 에듀인 · 와이즈</div>
+          <div class="tl-item__desc">고등·중학교 학생 대상 스마트 센서와 알티노 자율주행 자동차 피지컬컴퓨팅 교육을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">피지컬컴퓨팅</span>
+            <span class="tl-tag sage">알티노</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2025 · 11</div>
+          <div class="tl-item__title">디지털새싹 · 경기대 디지털새싹 — 마이크로비트 · 마티</div>
+          <div class="tl-item__org">대신중 · 월랑초 | 에듀인 · 와이즈</div>
+          <div class="tl-item__desc">마이크로비트와 마티 로봇을 활용한 피지컬컴퓨팅 및 경기대 연계 디지털새싹 교육을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">마이크로비트</span>
+            <span class="tl-tag sage">마티 로봇</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2025 · 11</div>
+          <div class="tl-item__title">찾아가는 디지털 문해교육</div>
+          <div class="tl-item__org">하귀경로당 · 아라복지관 · 도남경로당 외 | 재미에듀</div>
+          <div class="tl-item__desc">경로당 · 복지관 어르신 대상 디지털 기기 활용 문해교육을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag violet">디지털 문해</span>
+            <span class="tl-tag cream">시니어 교육</span>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-item__period">2025 · 08 — 10</div>
+          <div class="tl-item__title">디지털새싹 · 독서코딩 — 마이크로비트 · 핑퐁로봇</div>
+          <div class="tl-item__org">영주고 · 평대초 | 에듀인</div>
+          <div class="tl-item__desc">고교생 대상 마이크로비트 집중 교육(12차시)과 초등 독서코딩 융합 수업을 진행했습니다.</div>
+          <div class="tl-tags">
+            <span class="tl-tag mint">마이크로비트</span>
+            <span class="tl-tag peach">독서코딩 융합</span>
+            <span class="tl-tag sage">핑퐁로봇</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CERTIFICATIONS & SKILLS ═══ -->
+  <section id="certifications" class="section">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <div class="section__label">Certifications &amp; Skills</div>
+        <h2 class="section__title">자격증 &amp; 역량</h2>
+        <p class="section__desc">꾸준히 취득해온 디지털 교육 자격증과 보유 기술 역량입니다.</p>
+      </div>
+
+      <!-- Certs -->
+      <div class="cert-grid reveal">
+
+        <div class="cert-card">
+          <div class="cert-badge mint">🤖</div>
+          <div class="cert-info">
+            <div class="cert-name">AICE FUTURE 1급</div>
+            <div class="cert-issuer">KT · 한국경제신문</div>
+          </div>
+          <div class="cert-year">2026.01</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge sage">🎓</div>
+          <div class="cert-info">
+            <div class="cert-name">구글공인 교육전문가 Lv.1</div>
+            <div class="cert-issuer">Google</div>
+          </div>
+          <div class="cert-year">2026.01</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge cream">📊</div>
+          <div class="cert-info">
+            <div class="cert-name">ITQ 엑셀 A등급</div>
+            <div class="cert-issuer">한국생산성본부</div>
+          </div>
+          <div class="cert-year">2025.12</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge peach">🎨</div>
+          <div class="cert-info">
+            <div class="cert-name">캔바 디지털콘텐츠강사 2급</div>
+            <div class="cert-issuer">국제디지털콘텐츠협회</div>
+          </div>
+          <div class="cert-year">2025.12</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge mint">🤖</div>
+          <div class="cert-info">
+            <div class="cert-name">AICE FUTURE 1급 · 2급 · 3급</div>
+            <div class="cert-issuer">KT · 한국경제신문</div>
+          </div>
+          <div class="cert-year">2025.11</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge sage">🎓</div>
+          <div class="cert-info">
+            <div class="cert-name">구글공인 교육전문가 Lv.1 / Lv.2</div>
+            <div class="cert-issuer">Google</div>
+          </div>
+          <div class="cert-year">2025.10</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge mint">💻</div>
+          <div class="cert-info">
+            <div class="cert-name">COS 1급 (스크래치)</div>
+            <div class="cert-issuer">YBM IT</div>
+          </div>
+          <div class="cert-year">2025.07</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge violet">🥽</div>
+          <div class="cert-info">
+            <div class="cert-name">메타버스(VR코딩)교육 1급</div>
+            <div class="cert-issuer">㈜헬로앱스</div>
+          </div>
+          <div class="cert-year">2025.06</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-badge sage">🖊️</div>
+          <div class="cert-info">
+            <div class="cert-name">3D프린팅펜 지도사</div>
+            <div class="cert-issuer">3D프린팅펜창의융합교육협회</div>
+          </div>
+          <div class="cert-year">2025.05</div>
+        </div>
+
+      </div>
+
+      <!-- Skills -->
+      <div style="margin-top: 4rem;">
+        <div class="section__header reveal" style="margin-bottom:2rem;">
+          <div class="section__label">Skills</div>
+          <h2 class="section__title" style="font-size:1.7rem;">보유 역량 및 기술 스택</h2>
+        </div>
+        <div class="skills-grid reveal">
+
+          <div class="skill-group">
+            <div class="skill-group__icon">🤖</div>
+            <div class="skill-group__title">AI · 생성형 AI</div>
+            <div class="skill-group__tags">
+              <span class="skill-pill">생성형 AI 교육</span>
+              <span class="skill-pill">AICE 자격</span>
+              <span class="skill-pill">ChatGPT</span>
+              <span class="skill-pill">AI 진로교육</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group__icon">🔧</div>
+            <div class="skill-group__title">피지컬컴퓨팅</div>
+            <div class="skill-group__tags">
+              <span class="skill-pill">마이크로비트</span>
+              <span class="skill-pill">핑퐁로봇</span>
+              <span class="skill-pill">마티 로봇</span>
+              <span class="skill-pill">알티노 자동차</span>
+              <span class="skill-pill">3D프린팅펜</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group__icon">💻</div>
+            <div class="skill-group__title">코딩 교육</div>
+            <div class="skill-group__tags">
+              <span class="skill-pill">스크래치(COS 1급)</span>
+              <span class="skill-pill">엔트리</span>
+              <span class="skill-pill">독서코딩 융합</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group__icon">🎨</div>
+            <div class="skill-group__title">디지털 콘텐츠</div>
+            <div class="skill-group__tags">
+              <span class="skill-pill">캔바(강사 2급)</span>
+              <span class="skill-pill">메타버스·VR</span>
+              <span class="skill-pill">숏폼 영상 제작</span>
+              <span class="skill-pill">디지털 문해교육</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group__icon">📊</div>
+            <div class="skill-group__title">오피스 · 협업 도구</div>
+            <div class="skill-group__tags">
+              <span class="skill-pill">엑셀(ITQ A등급)</span>
+              <span class="skill-pill">Google Workspace</span>
+              <span class="skill-pill">구글 교육전문가</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCHEDULE ═══ -->
+  <section id="schedule" class="section section--alt">
+    <div class="section__inner">
+      <div class="section__header reveal">
+        <div class="section__label">Schedule</div>
+        <h2 class="section__title">수업 일정</h2>
+        <p class="section__desc">2026년 예정 및 완료된 강의 · 컨설팅 일정입니다.</p>
+      </div>
+
+      <div class="schedule-grid">
+
+        <div class="sched-card reveal">
+          <div class="sched-top mint">
+            <span class="sched-date mint">2026.01.09</span>
+            <span class="sched-status done">완료</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (캔바)</div>
+            <div class="sched-meta">📍 교대부설초 &nbsp;|&nbsp; 🏢 제주대학교<br>⏱ 2차시</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top mint">
+            <span class="sched-date mint">2026.01.12</span>
+            <span class="sched-status done">완료</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (캔바)</div>
+            <div class="sched-meta">📍 교대부설초 &nbsp;|&nbsp; 🏢 제주대학교<br>⏱ 3차시</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top sage">
+            <span class="sched-date sage">2026.02.10</span>
+            <span class="sched-status planned">예정</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (AI 활용)</div>
+            <div class="sched-meta">📍 화북초 &nbsp;|&nbsp; 🏢 제주대학교</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top sage">
+            <span class="sched-date sage">2026.02.11</span>
+            <span class="sched-status planned">예정</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (AI 활용)</div>
+            <div class="sched-meta">📍 오현고 &nbsp;|&nbsp; 🏢 제주대학교</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top sage">
+            <span class="sched-date sage">2026.02.12</span>
+            <span class="sched-status planned">예정</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (AI 활용)</div>
+            <div class="sched-meta">📍 신제주초 &nbsp;|&nbsp; 🏢 제주대학교</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top sage">
+            <span class="sched-date sage">2026.02.13</span>
+            <span class="sched-status planned">예정</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">찾아가는 학교컨설팅 (AI 활용)</div>
+            <div class="sched-meta">📍 교대부설초 &nbsp;|&nbsp; 🏢 제주대학교</div>
+          </div>
+        </div>
+
+        <div class="sched-card reveal">
+          <div class="sched-top cream">
+            <span class="sched-date cream">2026.02.24</span>
+            <span class="sched-status planned">예정</span>
+          </div>
+          <div class="sched-body">
+            <div class="sched-title">한국표준협회 AI 활용 강의</div>
+            <div class="sched-meta">📍 세명기업 &nbsp;|&nbsp; 🏢 한국표준협회</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <div id="contact" class="contact-strip">
+    <div class="contact-strip__inner">
+      <h2 class="contact-strip__title">함께 만들어가요</h2>
+      <p class="contact-strip__sub">강의 문의, 협업 제안, 컨설팅 요청은 언제든지 환영합니다.</p>
+      <a href="mailto:firia96@gmail.com" class="contact-strip__btn">
+        ✉&nbsp; firia96@gmail.com
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <p>© 2026 김태경 · 디지털 교육 전문 강사</p>
+    <p><a href="mailto:firia96@gmail.com">firia96@gmail.com</a></p>
+  </footer>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script>
+    /* ── Hamburger ── */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    /* ── Nav scroll shadow + active ── */
+    const navbar = document.getElementById('navbar');
+    const allLinks = document.querySelectorAll('.nav__links a');
+    const sections = document.querySelectorAll('section[id], div[id]');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', scrollY > 20);
+
+      let current = '';
+      sections.forEach(s => {
+        if (scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      allLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+
+    /* ── Smooth scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 68, behavior: 'smooth' });
+          navLinks.classList.remove('open');
+        }
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
