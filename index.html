@@ -1033,4 +1033,44 @@
 
     /* ── Nav scroll shadow + active ── */
     const navbar = document.getElementById('navbar');
- 
+    const allLinks = document.querySelectorAll('.nav__links a');
+    const sections = document.querySelectorAll('section[id], div[id]');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', scrollY > 20);
+      let current = '';
+      sections.forEach(s => {
+        if (scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      allLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+
+    /* ── Smooth scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 68, behavior: 'smooth' });
+          navLinks.classList.remove('open');
+        }
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
