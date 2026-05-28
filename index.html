@@ -252,15 +252,18 @@
     }
     .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
-    /* Floating stat cards */
+    /* Stat cards row — below photo */
+    .stat-cards-row {
+      display: flex; justify-content: center; gap: 0.8rem;
+      margin-top: 1.6rem; flex-wrap: wrap;
+    }
     .stat-card {
-      position: absolute;
       background: var(--white);
       border-radius: var(--radius-md);
       padding: 0.85rem 1.1rem;
       box-shadow: var(--shadow-md);
       display: flex; align-items: center; gap: 0.6rem;
-      z-index: 2;
+      border: 1px solid var(--cream-200);
     }
     .stat-card__icon {
       width: 38px; height: 38px; border-radius: 10px;
@@ -271,10 +274,6 @@
     .stat-card__icon.cream  { background: var(--cream-200); color: var(--text-mid); }
     .stat-card__num  { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
     .stat-card__lbl  { font-size: 0.72rem; color: var(--text-light); margin-top: 2px; }
-
-    .stat-card--a { top: -24px; right: -24px; }
-    .stat-card--b { bottom: 60px; left: -30px; }
-    .stat-card--c { bottom: -20px; right: 20px; }
 
     /* ════════════════════════════════
        SECTION COMMONS
@@ -540,9 +539,6 @@
       .hero__inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
       .hero__eyebrow, .hero__chips, .hero__actions { justify-content: center; }
       .hero__photo { width: 260px; height: 300px; }
-      .stat-card--a { top: -16px; right: -12px; }
-      .stat-card--b { bottom: 40px; left: -16px; }
-      .stat-card--c { bottom: -12px; right: 8px; }
       .timeline { grid-template-columns: 1fr; }
       .timeline::before { display: none; }
     }
@@ -564,7 +560,8 @@
       .cert-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .schedule-grid { grid-template-columns: 1fr; }
-      .stat-card { display: none; }
+      .stat-cards-row { gap: 0.5rem; }
+      .stat-card { padding: 0.65rem 0.9rem; }
     }
   </style>
 </head>
@@ -616,31 +613,33 @@
       <!-- Visual -->
       <div class="hero__visual">
         <div class="hero__photo-wrap">
-          <!-- Floating stat cards -->
-          <div class="stat-card stat-card--a">
+          <div class="hero__photo">
+            <img src="프로필사진5_김태경.png" alt="김태경 프로필 사진" />
+          </div>
+        </div>
+
+        <!-- Stat cards — below photo -->
+        <div class="stat-cards-row">
+          <div class="stat-card">
             <div class="stat-card__icon mint"><i class="ti ti-school" aria-hidden="true"></i></div>
             <div>
               <div class="stat-card__num">30+</div>
               <div class="stat-card__lbl">강의 회차</div>
             </div>
           </div>
-          <div class="stat-card stat-card--b">
+          <div class="stat-card">
             <div class="stat-card__icon cream"><i class="ti ti-certificate" aria-hidden="true"></i></div>
             <div>
               <div class="stat-card__num">9+</div>
               <div class="stat-card__lbl">보유 자격증</div>
             </div>
           </div>
-          <div class="stat-card stat-card--c">
+          <div class="stat-card">
             <div class="stat-card__icon mint"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
             <div>
               <div class="stat-card__num">15+</div>
               <div class="stat-card__lbl">강의 기관</div>
             </div>
-          </div>
-
-          <div class="hero__photo">
-            <img src="프로필사진5_김태경.png" alt="김태경 프로필 사진" />
           </div>
         </div>
       </div>
